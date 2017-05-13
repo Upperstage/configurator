@@ -1,0 +1,6 @@
+acr-configurator/
+ACRJava/
+dist/
+node_modules/
+error.log
+mongoose*

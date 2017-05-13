@@ -1,0 +1,159 @@
+{
+	"acr": {
+		"endpoints": {
+			"configurationData": "http://10.0.0.67:8081/aql/search?status=all&type=acrconf"
+		},
+		"numSoftwareOptions": 36,
+		"softwareOptions": {
+			"byte0_bit1": {
+				"label": "Multi-location",
+				"order": 131
+			},
+			"byte0_bit3": {
+				"label": "ISO Credit Interface",
+				"order": 93
+			},
+			"byte0_bit4": {
+				"label": "Gift Card Module",
+				"order": 72
+			},
+			"byte0_bit5": {
+				"label": "Scan-based Trading",
+				"order": 190
+			},
+			"byte0_bit6": {
+				"label": "DUKPT Support",
+				"order": 41
+			},
+			"byte0_bit7": {
+				"label": "ACR1000 System",
+				"order": 10
+			},
+			"byte0_bit8": {
+				"label": "Demo System",
+				"order": 40
+			},
+			"byte1_bit1": {
+				"label": "Host Maintenance",
+				"order": 80
+			},
+			"byte1_bit2": {
+				"label": "XML Transaction Support",
+				"order": 240
+			},
+			"byte1_bit3": {
+				"label": "Product ID & Training",
+				"order": 160
+			},
+			"byte1_bit4": {
+				"label": "Self-checkout",
+				"order": 190
+			},
+			"byte1_bit5": {
+				"label": "ICE Kiosks & Terminals",
+				"order": 90
+			},
+			"byte1_bit6": {
+				"label": "Universal Checkout",
+				"order": 210
+			},
+			"byte1_bit7": {
+				"label": "Customer Pole Display",
+				"order": 32
+			},
+			"byte1_bit8": {
+				"label": "Gas Pump Interface",
+				"order": 70
+			},
+			"byte2_bit1": {
+				"label": "Labor Scheduling",
+				"order": 120
+			},
+			"byte2_bit2": {
+				"label": "EMV Chip Card Support",
+				"order": 50
+			},
+			"byte2_bit3": {
+				"label": "52 Itemizer Support",
+				"order": 270
+			},
+			"byte2_bit4": {
+				"label": "Verifone Point Interface",
+				"order": 220
+			},
+			"byte3_bit2": {
+				"label": "Advanced Accounting",
+				"order": 10
+			},
+			"byte4_bit1": {
+				"label": "Inventory System",
+				"order": 91
+			},
+			"byte4_bit2": {
+				"label": "FM & Handheld Interface",
+				"order": 60
+			},
+			"byte5_bit1": {
+				"label": "Graphic Produce Images",
+				"order": 75
+			},
+			"byte5_bit2": {
+				"label": "Graphic Merchandising",
+				"order": 74
+			},
+			"byte5_bit3": {
+				"label": "Transcan Check Image",
+				"order": 201
+			},
+			"byte6_bit1": {
+				"label": "Catalina Coupon",
+				"order": 30
+			},
+			"byte6_bit2": {
+				"label": "MTX OpenEPS Payments",
+				"order": 130
+			},
+			"byte6_bit3": {
+				"label": "Digital Promotions/Couponing",
+				"order": 40
+			},
+			"byte6_bit4": {
+				"label": "IRI Interface",
+				"order": 92
+			},
+			"byte6_bit5": {
+				"label": "Shelf Label Support",
+				"order": 190
+			},
+			"byte6_bit6": {
+				"label": "Blackhawk Giftcard Support",
+				"order": 20
+			},
+			"byte6_bit7": {
+				"label": "TCI Client Interface",
+				"order": 200
+			},
+			"byte6_bit8": {
+				"label": "AMS E-couponing Interface",
+				"order": 10
+			},
+			"byte7_bit1": {
+				"label": "Next Generation Software",
+				"order": 140
+			},
+			"byte7_bit2": {
+				"label": "Customer Record Management",
+				"order": 31
+			},
+			"byte7_bit3": {
+				"label": "Global Promotions",
+				"order": 73
+			},
+			"byte8_bit1": {
+				"label": "Software Registration Required",
+				"order": 190
+			}
+		},
+		"useCannedData": "true"
+	}
+}
