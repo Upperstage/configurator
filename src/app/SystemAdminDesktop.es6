@@ -19,8 +19,8 @@ define( [ 'jquery', 'underscore', 'backbone', 'AqlService', 'CustomerConfigModel
 			 */
 			constructor() {
 
-				let customerCollection = null;
-				let customerEditView = null;
+				let customerCollection = null,
+					customerEditView = null;
 
 				this.getCustomerData().then( function( collection ) {
 

@@ -57,7 +57,6 @@ define( [ 'backbone', 'mustache' ],
 			render() {
 				this.$el.html( Mustache.render( template, {} ) );
 			}
-
 		}
 
 

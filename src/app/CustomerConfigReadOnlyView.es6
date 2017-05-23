@@ -7,9 +7,9 @@ define( [ 'backbone', 'mustache', 'moment' ],
 		 */
 		const template =
 			`{{# isVisible }}
-					<a class="customer-main">{{ owner }}</a>
-					<div class="customer-details">{{ serialNumber }}<span class="separator"/>{{ system_name }}<span class="separator"/>version: {{ softwareVersion }}<span class="separator"/>last updated: {{lastUpdated}}</div>
-				{{/ isVisible }}`;
+				<a class="customer-main">{{ owner }}</a>
+				<div class="customer-details">{{ serialNumber }}<span class="separator"/>{{ system_name }}<span class="separator"/>version: {{ softwareVersion }}<span class="separator"/>last updated: {{lastUpdated}}</div>
+			{{/ isVisible }}`;
 
 
 		/**
@@ -39,7 +39,7 @@ define( [ 'backbone', 'mustache', 'moment' ],
 			events() {
 				return {
 					'click a.customer-main': function() {
-						this.trigger( 'userRequestedShow' );
+					this.trigger( 'userRequestedShow' );
 					}
 				};
 			}
