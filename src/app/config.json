@@ -1,7 +1,8 @@
 {
 	"acr": {
 		"endpoints": {
-			"configurationData": "http://10.0.0.67:8081/aql/search?status=all&type=acrconf"
+			"XXconfigurationData": "http://10.0.0.67:8081/aql/search?status=all&type=acrconf",
+			"configurationData": "http://localhost:8081/configuration"
 		},
 		"numSoftwareOptions": 36,
 		"softwareOptions": {
@@ -154,6 +155,6 @@
 				"order": 190
 			}
 		},
-		"useCannedData": "true"
+		"useCannedData": "false"
 	}
 }

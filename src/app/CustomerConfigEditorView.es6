@@ -103,9 +103,7 @@ define( [ 'underscore', 'backbone', 'mustache', 'json!./config.json', 'text!Cust
 				const widthOfContainer = $( this.$el ).width() - 180;
 				const numberColumns = Math.floor( widthOfContainer / 275 );
 				const elMaxHeight = config.acr.numSoftwareOptions * 35 / numberColumns;
-				$( '.options', this.$el ).css( {
-					'maxHeight': elMaxHeight
-				} );
+				$( '.options', this.$el ).css( { 'maxHeight': elMaxHeight } );
 
 				$( 'input.systemOwnerName', this.el ).val( this.model.get( 'owner' ).trim() );
 				$( 'input.systemName', this.el ).val( this.model.get( 'system_name' ) );

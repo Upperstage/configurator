@@ -1,10 +1,16 @@
-define( [ 'jquery', 'underscore', 'backbone', 'AqlService', 'CustomerConfigModel', 'CustomerConfigReadOnlyView', 'CustomerConfigEditorView', 'SearchCustomerComponent' ],
-	( $, _, Backbone, AqlService, CustomerConfigModel, CustomerConfigReadOnlyView, CustomerConfigEditorView, SearchCustomerComponent ) => {
+define( [ 'jquery', 'underscore', 'backbone', 'json!./config.json', 'CustomerConfigModel', 'CustomerConfigReadOnlyView', 'CustomerConfigEditorView', 'SearchCustomerComponent' ],
+	( $, _, Backbone, config, CustomerConfigModel, CustomerConfigReadOnlyView, CustomerConfigEditorView, SearchCustomerComponent ) => {
+
+		// Validate expected configuration data is available
+		assert( _.isObject( config ) && _.isObject( config.acr ) && _.isObject( config.acr.endpoints ), 'ERROR: configuration parameters invalid in SystemAdminDesktop' );
 
 
 		let CustomerCollectionClass = Backbone.Collection.extend( {
-			model: CustomerConfigModel
+			model: CustomerConfigModel,
+			parse: json => json.rows,
+			url: config.acr.endpoints.configurationData
 		} );
+
 
 		/**
 		 * Simple class to manage the user desktop
@@ -67,21 +73,10 @@ define( [ 'jquery', 'underscore', 'backbone', 'AqlService', 'CustomerConfigModel
 
 				let customerCollection = new CustomerCollectionClass();
 
+				// Load data from AQL
 				return new Promise( function( resolve, reject ) {
-
-					// Load data from AQL
-					const configService = new AqlService();
-					configService.getAllCustomers().then( configData => {
-
-						// Expect JSON to have an attribute named rows
-						_( configData.rows ).each( json => {
-
-							// Create a new model from the J.bind(this)SON
-							customerCollection.add( new CustomerConfigModel( json ) );
-						} );
-
-						resolve( customerCollection );
-					} );
+					customerCollection.fetch()
+						.done( () => resolve( customerCollection ) );
 				} );
 			}
 		}
