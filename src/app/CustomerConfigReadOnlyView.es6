@@ -68,10 +68,11 @@ define( [ 'backbone', 'mustache', 'moment' ],
 						return this.visible;
 					},
 					lastUpdated: function() {
-						return moment( this.original_update_date, 'MM-DD-YYYY' ).fromNow();
+						return 'missing last_updated';
+						// return moment( this.lastUpdated, 'MM-DD-YYYY' ).fromNow();
 					},
 					serialNumber: function() {
-						return `#${this.serial_number}`;
+						return `#${this.sw_serial_number}`;
 					},
 					softwareVersion: function() {
 						return `v${this.system_version.trim()}`;

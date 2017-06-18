@@ -49,6 +49,10 @@ define( [ 'jquery', 'underscore', 'backbone', 'json!./config.json', 'CustomerCon
 							userRequestedShow: this.userRequestedShow
 						} );
 					}.bind( this ) );
+
+					// Hide loading banner
+					$('.loading-container').hide();
+
 				}.bind( this ) );
 
 

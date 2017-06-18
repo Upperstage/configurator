@@ -1,5 +1,5 @@
 @header-height: 60px;
-@customer-column-width: 430px;
+@customer-column-width: 470px;
 @search-component-height: 75px;
 @footer-height: 40px;
 
@@ -7,6 +7,20 @@ body {
 	height: 100vh;
 	overflow: hidden;
 	width: 100vw;
+
+	.loading-container {
+		background: rgba( 0, 0, 0, .2 );
+		height: 100%;
+		position: absolute;
+		top: 0;
+		width: 100%;
+
+		div {
+			left: 47vw;
+			position: absolute;
+			top: 45vh;
+		}
+	}
 
 	.primary-container {
 		display: grid;
