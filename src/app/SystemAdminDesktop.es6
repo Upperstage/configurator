@@ -1,5 +1,5 @@
-define( [ 'jquery', 'underscore', 'backbone', 'json!./config.json', 'CustomerConfigModel', 'CustomerConfigReadOnlyView', 'CustomerConfigEditorView', 'SearchCustomerComponent' ],
-	( $, _, Backbone, config, CustomerConfigModel, CustomerConfigReadOnlyView, CustomerConfigEditorView, SearchCustomerComponent ) => {
+define( [ 'jquery', 'underscore', 'backbone', 'json!./config.json', 'CustomerConfigModel', 'CustomerConfigReadOnlyView', 'CustomerConfigEditorView', 'SearchCustomerComponent', 'CustomerConfigEditorButtons' ],
+	( $, _, Backbone, config, CustomerConfigModel, CustomerConfigReadOnlyView, CustomerConfigEditorView, SearchCustomerComponent, CustomerConfigEditorButtons ) => {
 
 		// Validate expected configuration data is available
 		assert( _.isObject( config ) && _.isObject( config.acr ) && _.isObject( config.acr.endpoints ), 'ERROR: configuration parameters invalid in SystemAdminDesktop' );
@@ -26,7 +26,8 @@ define( [ 'jquery', 'underscore', 'backbone', 'json!./config.json', 'CustomerCon
 			constructor() {
 
 				let customerCollection = null,
-					customerEditView = null;
+					customerEditView = null,
+					buttonView = null;
 
 				this.getCustomerData().then( function( collection ) {
 
@@ -36,6 +37,7 @@ define( [ 'jquery', 'underscore', 'backbone', 'json!./config.json', 'CustomerCon
 						.prependTo( $( '.tabular-results-wrapper' ) );
 					new SearchCustomerComponent( searchComponentEl, customerCollection );
 
+					// Create the read only view for each model
 					customerCollection.each( function( model ) {
 
 						// Each view draws itself into a separate container
@@ -49,6 +51,14 @@ define( [ 'jquery', 'underscore', 'backbone', 'json!./config.json', 'CustomerCon
 							userRequestedShow: this.userRequestedShow
 						} );
 					}.bind( this ) );
+
+					// Create node for buttons
+					$( '.footer-content' ).html( $( '<div class="buttons-wrapper">' ) );
+
+					buttonView = new CustomerConfigEditorButtons( {
+						el: $( '.buttons-wrapper' ),
+						collection: customerCollection
+					} );
 
 					// Hide loading banner
 					$('.loading-container').hide();

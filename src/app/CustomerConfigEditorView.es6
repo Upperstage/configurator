@@ -1,5 +1,5 @@
-define( [ 'underscore', 'backbone', 'mustache', 'json!./config.json', 'text!CustomerEditForm.html', 'CustomerConfigEditorButtons' ],
-	( _, Backbone, Mustache, config, CustomerFormHtml, CustomerConfigEditorButtons ) => {
+define( [ 'underscore', 'backbone', 'mustache', 'json!./config.json', 'text!CustomerEditForm.html' ],
+	( _, Backbone, Mustache, config, CustomerFormHtml ) => {
 
 		/**
 		 * The Mustache template used to render the view
@@ -11,7 +11,7 @@ define( [ 'underscore', 'backbone', 'mustache', 'json!./config.json', 'text!Cust
 			 <div class="onoffswitch-and-label-wrapper" style="order: {{ order }}">
 				 <div class="onoffswitch-wrapper" >
 					<div class="onoffswitch">
-					    <input type="checkbox" class="onoffswitch-checkbox" id="option_{{ name }}" {{ isChecked }}>
+					    <input type="checkbox" class="onoffswitch-checkbox" id="option_{{ name }}" data-name="{{ name }}" {{ isChecked }}>
 					    <label class="onoffswitch-label" for="option_{{ name }}">
 					        <span class="onoffswitch-inner"></span>
 					        <span class="onoffswitch-switch"></span>
@@ -45,12 +45,21 @@ define( [ 'underscore', 'backbone', 'mustache', 'json!./config.json', 'text!Cust
 			}
 
 			/**
-			 * Setup handlers for the interesting events thrown by the model and
-			 * handled by this view
+			 * Setup handlers for the interesting events thrown by the DOM or the model
+			 * and handled by this view.
 			 * @public
 			 */
 			events() {
-				return {};
+				return {
+					'change input': () => {
+
+						// Update the model based on changes in the view
+						const target = $(event.target);
+						const attributeName = target.data('name');
+						const attributeValue = target[0].value;
+						this.model.set( attributeName, attributeValue === 'on' );
+					}
+				};
 			}
 
 			/**
@@ -62,9 +71,6 @@ define( [ 'underscore', 'backbone', 'mustache', 'json!./config.json', 'text!Cust
 
 				// Load the HTML used for the desktop
 				this.$el.html( CustomerFormHtml );
-
-				// Create node for buttons
-				$( '.footer-content' ).html( $( '<div class="buttons-wrapper">' ) );
 
 				this.render();
 				Backbone.View.prototype.initialize.call( this );
@@ -112,11 +118,6 @@ define( [ 'underscore', 'backbone', 'mustache', 'json!./config.json', 'text!Cust
 				$( 'input.maxPosLanes', this.el ).val( this.model.get( 'max_pos_lanes' ) );
 				$( 'input.maxAlternateProcs', this.el ).val( this.model.get( 'max_alternate_procs' ) );
 				$( 'input.maxTerminals', this.el ).val( this.model.get( 'terminal_max' ) );
-
-				let buttonsComponentEl = $( '.buttons-wrapper' );
-				new CustomerConfigEditorButtons( {
-					el: buttonsComponentEl
-				} );
 			}
 		}
 

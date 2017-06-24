@@ -8,8 +8,8 @@ define( [ 'backbone', 'mustache' ],
 		 */
 		const template = `
 		<div class="buttons">
-			<button type="button" class="btn btn-outline-primary btn-sm">New</button>
-			<button type="button" class="btn btn-primary btn-sm">Save</button>
+			<button type="button" disabled class="btn btn-outline-primary btn-sm new">New</button>
+			<button type="button" disabled class="btn btn-primary btn-sm save">Save</button>
 		</div>`;
 
 		/**
@@ -28,7 +28,13 @@ define( [ 'backbone', 'mustache' ],
 			 * @public
 			 */
 			constructor( args ) {
+
 				super( args );
+
+				let customerCollection = args.collection;
+				customerCollection.on( 'change', function(){
+					$( 'button.save', this.$el ).attr( 'disabled', false );
+				}.bind(this) );
 			}
 
 			/**
