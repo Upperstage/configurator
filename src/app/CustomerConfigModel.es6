@@ -1,5 +1,9 @@
-define( [ 'backbone' ],
-	( Backbone ) => {
+define( [ 'backbone', 'json!./config.json' ],
+	( Backbone, config ) => {
+
+		// Validate expected configuration data is available
+		assert( _.isObject( config ) && _.isObject( config.acr ) && _.isObject( config.acr.endpoints ), 'ERROR: configuration parameters invalid in SystemAdminDesktop' );
+
 
 		/**
 		 * Model to hold customer data
@@ -27,11 +31,17 @@ define( [ 'backbone' ],
 							name: key,
 							value: value
 						} );
-						this.unset( key, {
-							silent: true
-						} );
+						this.unset( key, { silent: true } );
+
+						// Ensure model does not appear to have been changed
+						// by the user
+						this.changed = {};
 					}
 				} );
+			}
+
+			url() {
+				return config.acr.endpoints.configurationData;
 			}
 		}
 

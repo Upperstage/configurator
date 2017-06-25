@@ -30,8 +30,9 @@ define( [ 'backbone', 'mustache' ],
 			constructor( args ) {
 
 				super( args );
-
 				let customerCollection = args.collection;
+
+				// Enable the save button on any change to the collection
 				customerCollection.on( 'change', function(){
 					$( 'button.save', this.$el ).attr( 'disabled', false );
 				}.bind(this) );
@@ -43,7 +44,13 @@ define( [ 'backbone', 'mustache' ],
 			 * @public
 			 */
 			events() {
-				return {};
+				return {
+					'click button.save': function(){
+						this.collection.each( model => {
+							if( model.hasChanged() ) model.save();
+						});
+					}
+				};
 			}
 
 			/**

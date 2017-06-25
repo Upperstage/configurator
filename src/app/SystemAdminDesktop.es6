@@ -65,7 +65,6 @@ define( [ 'jquery', 'underscore', 'backbone', 'json!./config.json', 'CustomerCon
 
 				}.bind( this ) );
 
-
 				/**
 				 * Handle the user's request to show customer config data
 				 * @private
@@ -94,6 +93,7 @@ define( [ 'jquery', 'underscore', 'backbone', 'json!./config.json', 'CustomerCon
 				} );
 			}
 		}
+
 
 		// RequireJS insists something be returned - in this case, the class.
 		return SystemAdminDesktop;
