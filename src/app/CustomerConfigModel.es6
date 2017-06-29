@@ -14,13 +14,17 @@ define( [ 'backbone', 'json!./config.json' ],
 			defaults() {
 				return {
 					softwareOptions: [],
+					userUpdated: null,
 					visible: true
 				};
 			}
 
 			constructor( args ) {
 				super( args );
+				this.idAttribute = "sw_serial_number";
+				this.urlRoot = config.acr.endpoints.configurationData;
 			}
+
 
 			initialize( attrs ) {
 
@@ -40,9 +44,27 @@ define( [ 'backbone', 'json!./config.json' ],
 				} );
 			}
 
-			url() {
-				return config.acr.endpoints.configurationData;
+			/**
+		 	 * Override the default JSON converter to return software options to a flat structure
+			 * @public
+			 */
+			toJSON() {
+				let defaultJson = Backbone.Model.prototype.toJSON.call( this );
+
+				for ( let option of defaultJson.softwareOptions ){
+					defaultJson[option.name] = option.value;
+				}
+
+				delete defaultJson.softwareOptions;
+				delete defaultJson.userUpdated;
+				delete defaultJson.visible;
+
+				return defaultJson;
 			}
+
+			// url() {
+			// 	return config.acr.endpoints.configurationData;
+			// }
 		}
 
 

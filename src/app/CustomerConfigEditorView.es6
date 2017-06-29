@@ -57,7 +57,16 @@ define( [ 'underscore', 'backbone', 'mustache', 'json!./config.json', 'text!Cust
 						const target = $(event.target);
 						const attributeName = target.data('name');
 						const attributeValue = target[0].value;
-						this.model.set( attributeName, attributeValue === 'on' );
+
+						let options = this.model.get( 'softwareOptions' );
+						for ( let option of options ){
+							if( option.name === attributeName ){
+								option.value = attributeValue === 'on' ? 'Y' : 'N';
+
+								// Setting options in the array (as above) won't trigger a change event, so ..
+								this.model.set( 'userUpdated', _.now() );
+							}
+						}
 					}
 				};
 			}

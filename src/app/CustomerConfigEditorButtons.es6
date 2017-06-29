@@ -45,9 +45,18 @@ define( [ 'backbone', 'mustache' ],
 			 */
 			events() {
 				return {
-					'click button.save': function(){
+					'click button.save': function() {
+
 						this.collection.each( model => {
-							if( model.hasChanged() ) model.save();
+
+							if( !model.hasChanged() ) return;
+
+							model.save( null, {
+								success: () => {},
+								error: () => {}
+							});
+
+							$( 'button.save', this.$el ).attr( 'disabled', true );
 						});
 					}
 				};
