@@ -1,5 +1,5 @@
-define( [ 'backbone', 'mustache' ],
-	( Backbone, Mustache ) => {
+define( [ 'backbone', 'mustache', 'messenger' ],
+	( Backbone, Mustache, Messenger ) => {
 
 		/**
 		 * Return the Mustache template used to render the view
@@ -52,8 +52,8 @@ define( [ 'backbone', 'mustache' ],
 							if( !model.hasChanged() ) return;
 
 							model.save( null, {
-								success: () => {},
-								error: () => {}
+								success: () => { Messenger().post('success') },
+								error: () => { Messenger().post('error') }
 							});
 
 							$( 'button.save', this.$el ).attr( 'disabled', true );

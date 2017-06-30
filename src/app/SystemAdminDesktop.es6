@@ -29,41 +29,45 @@ define( [ 'jquery', 'underscore', 'backbone', 'json!./config.json', 'CustomerCon
 					customerEditView = null,
 					buttonView = null;
 
-				this.getCustomerData().then( function( collection ) {
+				this.getCustomerData().then(
+					function( collection ) {
 
-					customerCollection = collection;
+						customerCollection = collection;
 
-					let searchComponentEl = $( '<div class="search-component-wrapper">' )
-						.prependTo( $( '.tabular-results-wrapper' ) );
-					new SearchCustomerComponent( searchComponentEl, customerCollection );
+						let searchComponentEl = $( '<div class="search-component-wrapper">' )
+							.prependTo( $( '.tabular-results-wrapper' ) );
+						new SearchCustomerComponent( searchComponentEl, customerCollection );
 
-					// Create the read only view for each model
-					customerCollection.each( function( model ) {
+						// Create the read only view for each model
+						customerCollection.each( function( model ) {
 
-						// Each view draws itself into a separate container
-						const elemForView = $( '<div>' );
-						$( '.tabular-results' ).append( elemForView );
+							// Each view draws itself into a separate container
+							const elemForView = $( '<div>' );
+							$( '.tabular-results' ).append( elemForView );
 
-						new CustomerConfigReadOnlyView( {
-							el: elemForView,
-							model: model
-						} ).on( {
-							userRequestedShow: this.userRequestedShow
+							new CustomerConfigReadOnlyView( {
+								el: elemForView,
+								model: model
+							} ).on( {
+								userRequestedShow: this.userRequestedShow
+							} );
+						}.bind( this ) );
+
+						// Create node for buttons
+						$( '.footer-content' ).html( $( '<div class="buttons-wrapper">' ) );
+
+						buttonView = new CustomerConfigEditorButtons( {
+							el: $( '.buttons-wrapper' ),
+							collection: customerCollection
 						} );
-					}.bind( this ) );
 
-					// Create node for buttons
-					$( '.footer-content' ).html( $( '<div class="buttons-wrapper">' ) );
+						// Hide loading banner
+						$('.loading-container').hide();
 
-					buttonView = new CustomerConfigEditorButtons( {
-						el: $( '.buttons-wrapper' ),
-						collection: customerCollection
-					} );
+					}.bind( this ),
 
-					// Hide loading banner
-					$('.loading-container').hide();
-
-				}.bind( this ) );
+					reject => $('.loading-container').hide()
+				);
 
 				/**
 				 * Handle the user's request to show customer config data
@@ -88,8 +92,16 @@ define( [ 'jquery', 'underscore', 'backbone', 'json!./config.json', 'CustomerCon
 
 				// Load data from AQL
 				return new Promise( function( resolve, reject ) {
-					customerCollection.fetch()
-						.done( () => resolve( customerCollection ) );
+					customerCollection.fetch({
+						error: ( coll, xhr ) => {
+							Messenger().error( `Error connecting to AQL: ${xhr.responseText}` );
+							reject();
+						}
+					})
+					.done( () => {
+						Messenger().info( `Retrieved ${customerCollection.length} records from AQL` );
+						resolve( customerCollection );
+					})
 				} );
 			}
 		}
