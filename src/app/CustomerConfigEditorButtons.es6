@@ -52,8 +52,9 @@ define( [ 'backbone', 'mustache', 'messenger' ],
 							if( !model.hasChanged() ) return;
 
 							model.save( null, {
-								success: () => { Messenger().post('success') },
-								error: () => { Messenger().post('error') }
+								error: () => { Messenger().post('error') },
+								success: ( model, response ) => { Messenger().post( 'Customer data saved successfully' )},
+								wait: true
 							});
 
 							$( 'button.save', this.$el ).attr( 'disabled', true );

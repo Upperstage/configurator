@@ -99,7 +99,7 @@ define( [ 'jquery', 'underscore', 'backbone', 'json!./config.json', 'CustomerCon
 						}
 					})
 					.done( () => {
-						Messenger().info( `Retrieved ${customerCollection.length} records from AQL` );
+						Messenger().info( `Configurator retrieved ${customerCollection.length} customer records from AQL` );
 						resolve( customerCollection );
 					})
 				} );

@@ -45,6 +45,14 @@ define( [ 'backbone', 'json!./config.json' ],
 			}
 
 			/**
+		 	 * Override the default parse to handle data after a save.  The updated model is returned in an array of 1.
+			 * @public
+			 */
+			parse( data ) {
+				return data.rows[0];
+			}
+
+			/**
 		 	 * Override the default JSON converter to return software options to a flat structure
 			 * @public
 			 */

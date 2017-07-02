@@ -8,7 +8,7 @@ define( [ 'underscore', 'backbone', 'mustache', 'json!./config.json', 'text!Cust
 		const template = `
 		{{# softwareOptions }}
 			{{# isUsed }}
-			 <div class="onoffswitch-and-label-wrapper" style="order: {{ order }}">
+			 <div class="onoffswitch-and-label-wrapper" title="{{ name }}" style="order: {{ order }}">
 				 <div class="onoffswitch-wrapper" >
 					<div class="onoffswitch">
 					    <input type="checkbox" class="onoffswitch-checkbox" id="option_{{ name }}" data-name="{{ name }}" {{ isChecked }}>
