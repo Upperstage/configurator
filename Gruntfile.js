@@ -1,7 +1,8 @@
 module.exports = function( grunt ){
 
 	var watchedFiles = [ 'src/**/*.es6', 'src/**/*.html', 'src/**/*.less' ],
-		deployDir = 'dist';
+		buildDir = 'dist',
+        deployDir = process.env['CONFIGURATOR_ROOT'];
 
 	grunt.initConfig({
 
@@ -11,19 +12,29 @@ module.exports = function( grunt ){
 					expand: true,
 					cwd: 'src',
 					src: [ '**/*.es6' ],
-					dest: deployDir,
+					dest: buildDir,
 					ext: '.js'
 				}]
 			}
 		},
 
+        clean: {
+		    deploy: [deployDir],
+            build: [buildDir]
+        },
+
 		copy: {
+		    deploy: {
+		        files: [
+                    { expand: true, cwd: buildDir, src: '**/*', dest: deployDir }
+                ]
+            },
 			html: {
 				files: [{
 					expand: true,
 					cwd: 'src',
 					src: [ '**/*.html', '**/*.json', '**/*.png' ],
-					dest: deployDir
+					dest: buildDir
 				}]
 			},
 			vendor: {
@@ -31,7 +42,7 @@ module.exports = function( grunt ){
 					expand: true,
 					cwd: 'src',
 					src: [ 'vendor/**/*.*' ],
-					dest: deployDir
+					dest: buildDir
 				}]
 			}
 		},
@@ -42,7 +53,7 @@ module.exports = function( grunt ){
 					expand: true,
 					cwd: 'src',
 					src: [ '**/*.less' ],
-					dest: deployDir,
+					dest: buildDir,
 					ext: '.css'
 				}]
 			}
@@ -63,5 +74,7 @@ module.exports = function( grunt ){
 	grunt.loadNpmTasks( 'grunt-contrib-less' );
 	grunt.loadNpmTasks( 'grunt-contrib-watch' );
 
-	grunt.registerTask( 'default', [ 'watch' ]);
-}
+	grunt.registerTask( 'default', [ 'build' ]);
+	grunt.registerTask( 'build', [ 'clean:build', 'babel', 'less', 'copy:html', 'copy:vendor' ]);
+	grunt.registerTask( 'deploy', [ 'build', 'clean:deploy', 'copy:deploy' ]);
+};
