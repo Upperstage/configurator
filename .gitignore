@@ -4,3 +4,4 @@ dist/
 node_modules/
 error.log
 mongoose*
+/.idea
