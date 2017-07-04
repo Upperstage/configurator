@@ -56,12 +56,12 @@ define( [ 'underscore', 'backbone', 'mustache', 'json!./config.json', 'text!Cust
 						// Update the model based on changes in the view
 						const target = $(event.target);
 						const attributeName = target.data('name');
-						const attributeValue = target[0].value;
+						const attributeValue = target[0].checked;
 
 						let options = this.model.get( 'softwareOptions' );
 						for ( let option of options ){
 							if( option.name === attributeName ){
-								option.value = attributeValue === 'on' ? 'Y' : 'N';
+								option.value = attributeValue ? 'Y' : 'N';
 
 								// Setting options in the array (as above) won't trigger a change event, so ..
 								this.model.set( 'userUpdated', _.now() );
