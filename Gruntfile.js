@@ -1,13 +1,18 @@
 module.exports = function( grunt ){
 
-	var watchedFiles = [ 'src/**/*.es6', 'src/**/*.html', 'src/**/*.less' ],
+    const rootKey = 'CONFIGURATOR_ROOT';
+
+    if(!process.env[rootKey])
+        throw new Error(`Environment variable '${rootKey}' does not exist or does not have a value. Please create it and set the value to the root of the public folder in the configurator server.`);
+
+	const watchedFiles = [ 'src/**/*.es6', 'src/**/*.html', 'src/**/*.less' ],
 		buildDir = 'dist',
-        deployDir = process.env['CONFIGURATOR_ROOT'];
+        deployDir = process.env[rootKey];
 
 	grunt.initConfig({
 
 		babel: {
-			compile: {
+			build: {
 				files: [{
 					expand: true,
 					cwd: 'src',
@@ -19,7 +24,10 @@ module.exports = function( grunt ){
 		},
 
         clean: {
-		    deploy: [deployDir],
+		    deploy: {
+		        files: deployDir,
+                options: { force: true }
+            },
             build: [buildDir]
         },
 
@@ -60,9 +68,10 @@ module.exports = function( grunt ){
 		},
 
 		watch: {
-			src: {
+			deploy: {
 				files: watchedFiles,
-				tasks: [ 'babel', 'less', 'copy:html', 'copy:vendor' ]
+				tasks: [ 'newer:clean:build', 'newer:babel', 'newer:less', 'newer:copy:html', 'newer:copy:vendor', 'newer:copy:deploy' ],
+                options: { spawn: false }
 			}
 		}
 	});
@@ -73,6 +82,7 @@ module.exports = function( grunt ){
 	grunt.loadNpmTasks( 'grunt-contrib-copy' );
 	grunt.loadNpmTasks( 'grunt-contrib-less' );
 	grunt.loadNpmTasks( 'grunt-contrib-watch' );
+    grunt.loadNpmTasks( 'grunt-newer' );
 
 	grunt.registerTask( 'default', [ 'build' ]);
 	grunt.registerTask( 'build', [ 'clean:build', 'babel', 'less', 'copy:html', 'copy:vendor' ]);
