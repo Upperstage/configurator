@@ -51,7 +51,15 @@ define( [ 'underscore', 'backbone', 'mustache', 'json!./config.json', 'text!Cust
 			 */
 			events() {
 				return {
-					'change input': () => {
+					'change input.form-control': () => {
+						// Update the model based on changes in the view
+						const target = $(event.target);
+						const attributeName = target.data('name');
+						const attributeValue = target[0].value;
+						this.model.set( attributeName, attributeValue );
+					},
+
+					'change input.onoffswitch-checkbox': () => {
 
 						// Update the model based on changes in the view
 						const target = $(event.target);
@@ -120,13 +128,13 @@ define( [ 'underscore', 'backbone', 'mustache', 'json!./config.json', 'text!Cust
 				const elMaxHeight = config.acr.numSoftwareOptions * 35 / numberColumns;
 				$( '.options', this.$el ).css( { 'maxHeight': elMaxHeight } );
 
-				$( 'input.systemOwnerName', this.el ).val( this.model.get( 'owner' ).trim() );
-				$( 'input.systemName', this.el ).val( this.model.get( 'system_name' ) );
-				$( 'input.systemVersion', this.el ).val( this.model.get( 'system_version' ) );
-				$( 'input.maxLocations', this.el ).val( this.model.get( 'location_max' ) );
-				$( 'input.maxPosLanes', this.el ).val( this.model.get( 'max_pos_lanes' ) );
-				$( 'input.maxAlternateProcs', this.el ).val( this.model.get( 'max_alternate_procs' ) );
-				$( 'input.maxTerminals', this.el ).val( this.model.get( 'terminal_max' ) );
+				$( 'input[data-name="owner"]', this.el ).val( this.model.get( 'owner' ).trim() );
+				$( 'input[data-name="system_name"]', this.el ).val( this.model.get( 'system_name' ) );
+				$( 'input[data-name="system_version"]', this.el ).val( this.model.get( 'system_version' ) );
+				$( 'input[data-name="location_max"]', this.el ).val( this.model.get( 'location_max' ) );
+				$( 'input[data-name="max_pos_lanes"]', this.el ).val( this.model.get( 'max_pos_lanes' ) );
+				$( 'input[data-name="max_alternate_procs"]', this.el ).val( this.model.get( 'max_alternate_procs' ) );
+				$( 'input[data-name="terminal_max"]', this.el ).val( this.model.get( 'terminal_max' ) );
 			}
 		}
 
