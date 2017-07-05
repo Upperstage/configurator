@@ -51,6 +51,7 @@ define( [ 'underscore', 'backbone', 'mustache', 'json!./config.json', 'text!Cust
 			 */
 			events() {
 				return {
+					// Ordinary text fields
 					'change input.form-control': () => {
 						// Update the model based on changes in the view
 						const target = $(event.target);
@@ -59,6 +60,7 @@ define( [ 'underscore', 'backbone', 'mustache', 'json!./config.json', 'text!Cust
 						this.model.set( attributeName, attributeValue );
 					},
 
+					// On/off switches
 					'change input.onoffswitch-checkbox': () => {
 
 						// Update the model based on changes in the view
