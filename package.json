@@ -1,0 +1,25 @@
+{
+  "name": "configurator",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Upperstage/configurator.git"
+  },
+  "author": "Jay Lockwood",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Upperstage/configurator/issues"
+  },
+  "homepage": "https://github.com/Upperstage/configurator#readme",
+  "devDependencies": {
+    "babel-preset-env": "^1.5.2",
+    "babel-preset-es2015": "^6.24.1",
+    "grunt": "^1.0.1",
+    "grunt-babel": "^6.0.0",
+    "grunt-contrib-clean": "^1.1.0",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-less": "^1.4.1",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-newer": "^1.3.0"
+  }
+}
