@@ -2,12 +2,13 @@ module.exports = function( grunt ){
 
     const rootKey = 'CONFIGURATOR_ROOT';
 
-    if(!process.env[rootKey])
-        throw new Error(`Environment variable '${rootKey}' does not exist or does not have a value. Please create it and set the value to the root of the public folder in the configurator server.`);
+    if( !process.env[rootKey] )
+        throw new Error( 'Environment variable \'${rootKey}\' does not exist or does not have a value. Please create it and set the value to the root of the public folder in the configurator server.' );
 
 	const watchedFiles = [ 'src/**/*.es6', 'src/**/*.html', 'src/**/*.less' ],
 		buildDir = 'dist',
         deployDir = process.env[rootKey];
+
 
 	grunt.initConfig({
 
@@ -28,7 +29,7 @@ module.exports = function( grunt ){
 		        files: deployDir,
                 options: { force: true }
             },
-            build: [buildDir]
+            build: [ buildDir ]
         },
 
 		copy: {
@@ -84,7 +85,7 @@ module.exports = function( grunt ){
 	grunt.loadNpmTasks( 'grunt-contrib-watch' );
     grunt.loadNpmTasks( 'grunt-newer' );
 
-	grunt.registerTask( 'default', [ 'build' ]);
+	grunt.registerTask( 'default', [ 'deploy' ]);
 	grunt.registerTask( 'build', [ 'clean:build', 'babel', 'less', 'copy:html', 'copy:vendor' ]);
 	grunt.registerTask( 'deploy', [ 'build', 'clean:deploy', 'copy:deploy' ]);
 };
