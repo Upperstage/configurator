@@ -3,7 +3,7 @@ module.exports = function( grunt ){
     const rootKey = 'CONFIGURATOR_ROOT';
 
     if( !process.env[rootKey] )
-        throw new Error( 'Environment variable \'${rootKey}\' does not exist or does not have a value. Please create it and set the value to the root of the public folder in the configurator server.' );
+        throw new Error( `Environment variable '${rootKey}' does not exist or does not have a value. Please create it and set the value to the root of the public folder in the configurator server.` );
 
 	const watchedFiles = [ 'src/**/*.es6', 'src/**/*.html', 'src/**/*.less' ],
 		buildDir = 'dist',
