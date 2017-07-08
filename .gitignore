@@ -3,3 +3,4 @@ ACRJava/
 dist/
 node_modules/
 error.log
+.idea/
