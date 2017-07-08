@@ -21,5 +21,9 @@
     "grunt-contrib-less": "^1.4.1",
     "grunt-contrib-watch": "^1.0.0",
     "grunt-newer": "^1.3.0"
+  },
+  "dependencies": {
+    "grunt-js-beautify": "^0.1.4",
+    "grunt-newer": "^1.3.0"
   }
 }

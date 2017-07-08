@@ -3,10 +3,9 @@ module.exports = function( grunt ){
     const rootKey = 'CONFIGURATOR_ROOT';
 
     if( !process.env[rootKey] )
-        throw new Error( 'Environment variable \'${rootKey}\' does not exist or does not have a value. Please create it and set the value to the root of the public folder in the configurator server.' );
+        throw new Error( 'Environment variable \'${rootKey}\' does not exist or does not have a value. Please create it, and set the value to the public folder in the configurator server.' );
 
 	const watchedFiles = [ 'src/**/*.es6', 'src/**/*.html', 'src/**/*.less' ],
-		buildDir = 'dist',
         deployDir = process.env[rootKey];
 
 
@@ -14,64 +13,33 @@ module.exports = function( grunt ){
 
 		babel: {
 			build: {
-				files: [{
-					expand: true,
-					cwd: 'src',
-					src: [ '**/*.es6' ],
-					dest: buildDir,
-					ext: '.js'
-				}]
+				files: [{ expand: true, cwd: 'src', src: [ '**/*.es6' ], dest: deployDir, ext: '.js' }]
 			}
 		},
 
         clean: {
-		    deploy: {
-		        files: deployDir,
-                options: { force: true }
-            },
-            build: [ buildDir ]
+		    deploy: { files: deployDir, options: { force: true } }
         },
 
 		copy: {
-		    deploy: {
-		        files: [
-                    { expand: true, cwd: buildDir, src: '**/*', dest: deployDir }
-                ]
-            },
 			html: {
-				files: [{
-					expand: true,
-					cwd: 'src',
-					src: [ '**/*.html', '**/*.json', '**/*.png' ],
-					dest: buildDir
-				}]
+				files: [{ expand: true, cwd: 'src', src: [ '**/*.html', '**/*.json', '**/*.png' ], dest: deployDir }]
 			},
 			vendor: {
-				files: [{
-					expand: true,
-					cwd: 'src',
-					src: [ 'vendor/**/*.*' ],
-					dest: buildDir
-				}]
+				files: [{ expand: true, cwd: 'src', src: [ 'vendor/**/*.*' ], dest: deployDir }]
 			}
 		},
 
 		less: {
 			compile: {
-				files: [{
-					expand: true,
-					cwd: 'src',
-					src: [ '**/*.less' ],
-					dest: buildDir,
-					ext: '.css'
-				}]
+				files: [{ expand: true, cwd: 'src', src: [ '**/*.less' ], dest: deployDir, ext: '.css'}]
 			}
 		},
 
 		watch: {
 			deploy: {
 				files: watchedFiles,
-				tasks: [ 'newer:clean:build', 'newer:babel', 'newer:less', 'newer:copy:html', 'newer:copy:vendor', 'newer:copy:deploy' ],
+				tasks: [ 'newer:babel', 'newer:less', 'newer:copy:html', 'newer:copy:vendor' ],
                 options: { spawn: false }
 			}
 		}
@@ -85,7 +53,6 @@ module.exports = function( grunt ){
 	grunt.loadNpmTasks( 'grunt-contrib-watch' );
     grunt.loadNpmTasks( 'grunt-newer' );
 
-	grunt.registerTask( 'default', [ 'deploy' ]);
-	grunt.registerTask( 'build', [ 'clean:build', 'babel', 'less', 'copy:html', 'copy:vendor' ]);
-	grunt.registerTask( 'deploy', [ 'build', 'clean:deploy', 'copy:deploy' ]);
+	grunt.registerTask( 'default', [ 'build' ]);
+	grunt.registerTask( 'build', [ 'clean:deploy', 'babel', 'less', 'copy:html', 'copy:vendor' ]);
 };

@@ -28,7 +28,7 @@ body {
 		grid-template-rows: @header-height 1fr @footer-height;
 
 		.header-content {
-			color: red;
+			color: #AB0F3C;
 			grid-column: ~"1 / span 2";
 			grid-row: 1;
 			margin: 0px auto;
@@ -51,7 +51,7 @@ body {
 				width: ~"calc( " @customer-column-width ~" - 75px )";
 			}
 			.fa.fa-search{
-				color: red;
+				color: #AB0F3C;
 				margin-left: 10px;
 			}
 
@@ -94,17 +94,22 @@ body {
 			.data-entry-form {
 
 				fieldset {
-					border-top: 1px solid lightgray;
-					margin-top: 15px;
+					margin: 15px 0px 30px;
 					padding: 0em 1em;
+					position: relative;
 
 					legend {
-						border: 0px;
-						color: red;
+						border-color: #AB0F3C;
+						border-width: 2px;
+						color: #AB0F3C;
 						font-size: 1.1em;
 						font-weight: bold;
 						margin-bottom: 10px;
 						padding: 0px 8px;
+					}
+
+					row {
+						padding-left: 20px;
 					}
 
 					input {
