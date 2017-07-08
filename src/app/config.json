@@ -1,7 +1,6 @@
 {
 	"acr": {
 		"endpoints": {
-			"XXconfigurationData": "http://10.0.0.67:8081/aql/search?status=all&type=acrconf",
 			"configurationData": "http://localhost:8081/api/configuration"
 		},
 		"numSoftwareOptions": 36,
