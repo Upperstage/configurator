@@ -1,5 +1,5 @@
-define( [ 'backbone', 'mustache', 'messenger' ],
-	( Backbone, Mustache, Messenger ) => {
+define( [ 'backbone', 'mustache', 'messenger', 'CustomerConfigModel' ],
+	( Backbone, Mustache, Messenger, CustomerConfigModel ) => {
 
 		/**
 		 * Return the Mustache template used to render the view
@@ -8,7 +8,7 @@ define( [ 'backbone', 'mustache', 'messenger' ],
 		 */
 		const template = `
 		<div class="buttons">
-			<button type="button" disabled class="btn btn-outline-primary btn-sm new">New</button>
+			<button type="button" class="btn btn-primary btn-sm new">New</button>&nbsp;&nbsp;
 			<button type="button" disabled class="btn btn-primary btn-sm save">Save</button>
 		</div>`;
 
@@ -45,6 +45,9 @@ define( [ 'backbone', 'mustache', 'messenger' ],
 			 */
 			events() {
 				return {
+					'click button.new': function() {
+						this.collection.add( new CustomerConfigModel() );
+					},
 					'click button.save': function() {
 
 						this.collection.each( model => {

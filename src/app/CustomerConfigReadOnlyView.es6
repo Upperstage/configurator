@@ -43,7 +43,7 @@ define( [ 'backbone', 'mustache', 'moment' ],
 			events() {
 				return {
 					'click a.customer-main': function() {
-						this.trigger( 'userRequestedShow' );
+						this.trigger( 'userRequestedShow', this.model );
 					}
 				};
 			}

@@ -30,8 +30,8 @@ define( [ 'jquery', 'underscore', 'backbone', 'json!./config.json', 'CustomerCon
 					buttonView = null;
 
 				this.getCustomerData().then(
-					function( collection ) {
 
+					function( collection ) {
 						customerCollection = collection;
 
 						let searchComponentEl = $( '<div class="search-component-wrapper">' )
@@ -39,19 +39,8 @@ define( [ 'jquery', 'underscore', 'backbone', 'json!./config.json', 'CustomerCon
 						new SearchCustomerComponent( searchComponentEl, customerCollection );
 
 						// Create the read only view for each model
-						customerCollection.each( function( model ) {
-
-							// Each view draws itself into a separate container
-							const elemForView = $( '<div>' );
-							$( '.tabular-results' ).append( elemForView );
-
-							new CustomerConfigReadOnlyView( {
-								el: elemForView,
-								model: model
-							} ).on( {
-								userRequestedShow: this.userRequestedShow
-							} );
-						}.bind( this ) );
+						customerCollection.each( customerModelAdded );
+						customerCollection.on( 'add', model => { customerModelAdded( model ); userRequestedShow( model ); } );
 
 						// Create node for buttons
 						$( '.footer-content' ).html( $( '<div class="buttons-wrapper">' ) );
@@ -65,18 +54,35 @@ define( [ 'jquery', 'underscore', 'backbone', 'json!./config.json', 'CustomerCon
 						$('.loading-container').hide();
 
 					}.bind( this ),
-
 					reject => $('.loading-container').hide()
 				);
+
+				/**
+				 * Render a read-only view of the model
+				 * @private
+				 */
+				function customerModelAdded( model ) {
+
+					// Each view draws itself into a separate container
+					const elemForView = $( '<div>' );
+					$( '.tabular-results' ).prepend( elemForView );
+
+					new CustomerConfigReadOnlyView( {
+						el: elemForView,
+						model: model
+					} ).on( {
+						userRequestedShow: userRequestedShow
+					} );
+				}
 
 				/**
 				 * Handle the user's request to show customer config data
 				 * @private
 				 */
-				this.userRequestedShow = function() {
+				function userRequestedShow( model ) {
 					customerEditView = new CustomerConfigEditorView( {
 						el: '.data-entry-form-wrapper',
-						model: this.model
+						model: model
 					} );
 				}
 			}

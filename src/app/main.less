@@ -1,3 +1,4 @@
+@acr_red: #AB0F3C;
 @header-height: 60px;
 @customer-column-width: 470px;
 @search-component-height: 75px;
@@ -10,13 +11,14 @@ body {
 
 	.loading-container {
 		background: rgba( 0, 0, 0, .2 );
+		color: @acr_red;
 		height: 100%;
 		position: absolute;
 		top: 0;
 		width: 100%;
 
 		div {
-			left: 47vw;
+			left: 49vw;
 			position: absolute;
 			top: 45vh;
 		}
@@ -28,7 +30,7 @@ body {
 		grid-template-rows: @header-height 1fr @footer-height;
 
 		.header-content {
-			color: #AB0F3C;
+			color: @acr_red;
 			grid-column: ~"1 / span 2";
 			grid-row: 1;
 			margin: 0px auto;
@@ -51,7 +53,7 @@ body {
 				width: ~"calc( " @customer-column-width ~" - 75px )";
 			}
 			.fa.fa-search{
-				color: #AB0F3C;
+				color: @acr_red;
 				margin-left: 10px;
 			}
 
@@ -99,9 +101,9 @@ body {
 					position: relative;
 
 					legend {
-						border-color: #AB0F3C;
+						border-color: @acr_red;
 						border-width: 2px;
-						color: #AB0F3C;
+						color: @acr_red;
 						font-size: 1.1em;
 						font-weight: bold;
 						margin-bottom: 10px;
