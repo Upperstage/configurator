@@ -130,12 +130,12 @@ define( [ 'underscore', 'backbone', 'mustache', 'json!./config.json', 'text!Cust
 				const elMaxHeight = config.acr.numSoftwareOptions * 35 / numberColumns;
 				$( '.options', this.$el ).css( { 'maxHeight': elMaxHeight } );
 
+				$( 'input[data-name="location_max"]', this.el ).val( this.model.get( 'location_max' ) );
+				$( 'input[data-name="max_alternate_procs"]', this.el ).val( this.model.get( 'max_alternate_procs' ) );
+				$( 'input[data-name="max_pos_lanes"]', this.el ).val( this.model.get( 'max_pos_lanes' ) );
 				$( 'input[data-name="owner"]', this.el ).val( this.model.get( 'owner' ).trim() );
 				$( 'input[data-name="system_name"]', this.el ).val( this.model.get( 'system_name' ) );
 				$( 'input[data-name="system_version"]', this.el ).val( this.model.get( 'system_version' ) );
-				$( 'input[data-name="location_max"]', this.el ).val( this.model.get( 'location_max' ) );
-				$( 'input[data-name="max_pos_lanes"]', this.el ).val( this.model.get( 'max_pos_lanes' ) );
-				$( 'input[data-name="max_alternate_procs"]', this.el ).val( this.model.get( 'max_alternate_procs' ) );
 				$( 'input[data-name="terminal_max"]', this.el ).val( this.model.get( 'terminal_max' ) );
 			}
 		}

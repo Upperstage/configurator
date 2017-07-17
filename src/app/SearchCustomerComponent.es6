@@ -37,7 +37,7 @@ define( [ 'jquery', 'underscore', 'backbone' ],
 				 */
 				let handleSearch = function() {
 					const textToSearch = inputEl.val();
-					collection.each( ( model ) => {
+					collection.each( model   => {
 						const matchesName = model.get( 'owner' ).includes( textToSearch );
 						const matchesSerialNumber = model.get( 'serial_number' ) == textToSearch;
 						model.set( 'visible', matchesName || matchesSerialNumber );

@@ -10,7 +10,7 @@ define( [ 'backbone', 'mustache', 'moment' ],
 				<a class="customer-main">{{ owner }}</a>
 				<div class="customer-details">{{ serialNumber }}
 					<span class="separator"/>{{ system_name }}
-					<span class="separator"/>version: {{ softwareVersion }}
+					<span class="separator"/>version: {{ systemVersion }}
 					<span class="separator"/>last updated: {{lastUpdated}}
 				</div>
 			{{/ isVisible }}`;
@@ -77,7 +77,7 @@ define( [ 'backbone', 'mustache', 'moment' ],
 					serialNumber: function() {
 						return `#${this.sw_serial_number}`;
 					},
-					softwareVersion: function() {
+					systemVersion: function() {
 						return `v${this.system_version.trim()}`;
 					}
 				}, this.model.attributes );

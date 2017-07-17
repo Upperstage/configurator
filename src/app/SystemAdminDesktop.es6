@@ -40,15 +40,12 @@ define( [ 'jquery', 'underscore', 'backbone', 'json!./config.json', 'CustomerCon
 
 						// Create the read only view for each model
 						customerCollection.each( customerModelAdded );
-						customerCollection.on( 'add', model => { customerModelAdded( model ); userRequestedShow( model ); } );
+						//customerCollection.on( 'sync', model => { customerModelAdded( model ); userRequestedShow( model ); } );
 
 						// Create node for buttons
 						$( '.footer-content' ).html( $( '<div class="buttons-wrapper">' ) );
 
-						buttonView = new CustomerConfigEditorButtons( {
-							el: $( '.buttons-wrapper' ),
-							collection: customerCollection
-						} );
+						buttonView = new CustomerConfigEditorButtons( { el: $( '.buttons-wrapper' ), collection: customerCollection } );
 
 						// Hide loading banner
 						$('.loading-container').hide();
@@ -67,12 +64,8 @@ define( [ 'jquery', 'underscore', 'backbone', 'json!./config.json', 'CustomerCon
 					const elemForView = $( '<div>' );
 					$( '.tabular-results' ).prepend( elemForView );
 
-					new CustomerConfigReadOnlyView( {
-						el: elemForView,
-						model: model
-					} ).on( {
-						userRequestedShow: userRequestedShow
-					} );
+					new CustomerConfigReadOnlyView( { el: elemForView, model: model } )
+						.on( {userRequestedShow: userRequestedShow } );
 				}
 
 				/**
@@ -99,6 +92,7 @@ define( [ 'jquery', 'underscore', 'backbone', 'json!./config.json', 'CustomerCon
 				// Load data from AQL
 				return new Promise( function( resolve, reject ) {
 					customerCollection.fetch({
+						replace: true,
 						error: ( coll, xhr ) => {
 							Messenger().error( `Error connecting to AQL: ${xhr.responseText}` );
 							reject();
