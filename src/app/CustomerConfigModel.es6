@@ -54,7 +54,7 @@ define( [ 'backbone', 'json!./config.json', 'moment' ],
 			initialize( attrs ) {
 
 				// Create an array of byte/bit values for ease of rendering later
-				_( attrs ).map( ( value, key ) => {
+				_(attrs ).map( ( value, key ) => {
 					if ( key.startsWith( 'byte' ) ) {
 
 						this.attributes.softwareOptions = _( this.attributes.softwareOptions ).without( _( this.attributes.softwareOptions ).findWhere({ name: key }) );

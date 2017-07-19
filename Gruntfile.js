@@ -30,6 +30,46 @@ module.exports = function( grunt ){
 			}
 		},
 
+ 		jsbeautifier: {
+            files: [ 'src/*.json', 'src/*.html', 'src/*.es6' ],
+            options: {
+				html: {
+	            	braceStyle: "collapse",
+	            	indentChar: " ",
+	            	indentScripts: "keep",
+	            	indentSize: 4,
+	            	maxPreserveNewlines: 10,
+	            	preserveNewlines: true,
+	            	unformatted: ["a", "sub", "sup", "b", "i", "u"],
+	            	wrapLineLength: 0
+	          	},
+				css: {
+	            	indentChar: " ",
+	            	indentSize: 4
+	          	},
+				js: {
+	            	braceStyle: "collapse",
+	            	breakChainedMethods: false,
+	            	e4x: false,
+	            	endWithNewline: false,
+	            	evalCode: false,
+	            	indentChar: " ",
+	            	indentLevel: 0,
+	            	indentSize: 4,
+	            	indentWithTabs: false,
+	            	jslintHappy: false,
+	            	keepArrayIndentation: false,
+	            	keepFunctionIndentation: false,
+	            	maxPreserveNewlines: 10,
+	            	preserveNewlines: true,
+	            	spaceBeforeConditional: true,
+	            	spaceInParen: false,
+	            	unescapeStrings: false,
+	            	wrapLineLength: 0
+	          }
+	      }
+        },
+
 		less: {
 			compile: {
 				files: [{ expand: true, cwd: 'src', src: [ '**/*.less' ], dest: deployDir, ext: '.css'}]
@@ -39,7 +79,7 @@ module.exports = function( grunt ){
 		watch: {
 			deploy: {
 				files: watchedFiles,
-				tasks: [ 'newer:babel', 'newer:less', 'newer:copy:html', 'newer:copy:vendor' ],
+				tasks: [ 'jsbeautifier', 'newer:babel', 'newer:less', 'newer:copy:html', 'newer:copy:vendor' ],
                 options: { spawn: false }
 			}
 		}
@@ -51,6 +91,7 @@ module.exports = function( grunt ){
 	grunt.loadNpmTasks( 'grunt-contrib-copy' );
 	grunt.loadNpmTasks( 'grunt-contrib-less' );
 	grunt.loadNpmTasks( 'grunt-contrib-watch' );
+	grunt.loadNpmTasks( 'grunt-jsbeautifier' );
     grunt.loadNpmTasks( 'grunt-newer' );
 
 	grunt.registerTask( 'default', [ 'build' ]);
