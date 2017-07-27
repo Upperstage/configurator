@@ -8,9 +8,11 @@ define( [ 'backbone', 'mustache', 'messenger', 'CustomerConfigModel' ],
 		 */
 		const template = `
 		<div class="buttons">
-			<button type="button" class="btn btn-primary btn-sm new">New</button>&nbsp;&nbsp;
-			<button type="button" disabled class="btn btn-primary btn-sm save">Save</button>
+			<button type="button" disabled class="btn btn-success btn-sm save">save</button>&nbsp;&nbsp;
+			<button type="button" class="btn btn-primary btn-sm new">new</button>&nbsp;&nbsp;
+			<button type="button" disabled class="btn btn-primary btn-sm copy">copy</button>
 		</div>`;
+
 
 		/**
 		 * A View is an atomic chunk of user interface. It often renders the data

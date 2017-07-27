@@ -25,6 +25,7 @@ define( [ 'underscore', 'backbone', 'mustache', 'json!./config.json', 'text!Cust
 			{{/ isUsed }}
 		{{/ softwareOptions }}`;
 
+
 		/**
 		 * A View is an atomic chunk of user interface. It often renders the data
 		 * from a specific model, or number of models — but views can also be data-less
