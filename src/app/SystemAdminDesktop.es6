@@ -40,7 +40,6 @@ define( [ 'jquery', 'underscore', 'backbone', 'json!./config.json', 'CustomerCon
 
 						// Create the read only view for each model
 						customerCollection.each( customerModelAdded );
-						customerCollection.on( 'add',  model => { debugger; /*customerModelAdded( model ); userRequestedShow( model ); */ }  );
 
 						// Create node for buttons
 						$( '.footer-content' ).html( $( '<div class="buttons-wrapper">' ) );
@@ -53,6 +52,11 @@ define( [ 'jquery', 'underscore', 'backbone', 'json!./config.json', 'CustomerCon
 					}.bind( this ),
 					reject => $('.loading-container').hide()
 				);
+
+
+				// When another new model is added
+				customerCollection.on( 'add',  model => { customerModelAdded( model ); userRequestedShow( model ); } );
+
 
 				/**
 				 * Render a read-only view of the model
